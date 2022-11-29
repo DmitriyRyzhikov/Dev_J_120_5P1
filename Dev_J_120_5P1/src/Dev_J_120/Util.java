@@ -4,16 +4,14 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 
-
 public final class Util {
     
-   // private static File fileDir;
-    
-    public static void closeApp(MainFrame frame){
+    public static void closeApp(JFrame frame){
 
         frame.addWindowListener(new WindowAdapter() { 
             @Override
@@ -30,7 +28,7 @@ public final class Util {
             }
         });
     }
-    public static File chooseDir(MainFrame frame) {
+    public static File chooseDir(JFrame frame) {
         File fileDir = new File(System.getProperty("user.dir"));
         JFileChooser chooser = new JFileChooser();
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -38,7 +36,7 @@ public final class Util {
             if(ch == JFileChooser.APPROVE_OPTION){
                fileDir = chooser.getSelectedFile();
         }
-            return fileDir;
+        return fileDir;
     }
     public static int compareFiles(File f1, File f2) {
         if(f1.isDirectory() && f2.isFile())
@@ -46,6 +44,5 @@ public final class Util {
         if(f1.isFile() && f2.isDirectory())
             return 1;
         return f1.getName().compareTo(f2.getName());
-    }
-    
+    }   
 }

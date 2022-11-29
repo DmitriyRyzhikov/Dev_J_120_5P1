@@ -1,9 +1,10 @@
 package Dev_J_120;
 
-
 import java.awt.Component;
 import java.io.File;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.tree.DefaultTreeCellRenderer;
@@ -20,7 +21,7 @@ public class FileTreeCellRenderer extends DefaultTreeCellRenderer {
     }
 
     @Override
-    public Component getTreeCellRendererComponent(
+    public Component getTreeCellRendererComponent (
         JTree tree,
         Object value,
         boolean selected,
@@ -28,7 +29,7 @@ public class FileTreeCellRenderer extends DefaultTreeCellRenderer {
         boolean leaf,
         int row,
         boolean hasFocus) {
-
+    try {
         if(value instanceof File) {
            File file = (File)value;
            label.setIcon(fileSystemView.getSystemIcon(file));
@@ -42,8 +43,21 @@ public class FileTreeCellRenderer extends DefaultTreeCellRenderer {
            else {
                label.setBackground(backgroundNonSelectionColor);
                label.setForeground(textNonSelectionColor);
-                }        
+                }
         }
-        return label;
+        else
+            throw new ClassCastException(); 
+        }
+    catch (ClassCastException ce) 
+        {
+            JFrame.getFrames()[0].setVisible(true); 
+            JOptionPane.showMessageDialog
+            (JFrame.getFrames()[0], 
+            "Data type mismatch in FileTreeCellRenderer class. The application will be closed.", 
+            "TreeCellRenderer error",
+	    JOptionPane.ERROR_MESSAGE);
+            System.exit(0); 
+        }
+    return label;
     }
 }
